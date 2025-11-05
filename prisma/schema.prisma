@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+  id           Int           @id @default(autoincrement())
+  first_name   String        @db.VarChar(40)
+  last_name    String        @db.VarChar(80)
+  pesel        String        @db.Char(11)
+  status       Status
+  note         String?
+  createdAt    DateTime      @default(now()) @db.Timestamp(6)
+  updatedAt    DateTime      @updatedAt
+  integrations Integration[]
+}
+
+model Integration {
+  id        Int             @id @default(autoincrement())
+  clientId  Int
+  type      IntegrationType
+  createdAt DateTime        @default(now()) @db.Timestamp(6)
+  client    Client          @relation(fields: [clientId], references: [id])
+}
+
+enum Status {
+  REGISTERED
+  INTEGRATED
+  RESIGNED
+}
+
+enum IntegrationType {
+  API
+  INTERNAL
+}
