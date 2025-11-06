@@ -1,25 +1,39 @@
-import { type ListCLientQueryParams, type ClientParams, type Status, type ListIntegrationsQueryParams } from "./interfaces.ts"
+import { type Client, type Integration, type ClientWithIntegrations, type ListCLientQueryParams, type ClientParams, type Status, type ListIntegrationsQueryParams } from "./interfaces.ts"
+import prisma from "./prisma.ts"
 
-export function listClients(queryParams: ListCLientQueryParams): Array<Client> {
-    // define list Clients
+export async function listClients(queryParams: ListCLientQueryParams): Promise<ClientWithIntegrations[]> {
+    const clients = await prisma.client.findMany({
+        where: { },
+        include: { integrations: true }
+    })
+
+    return clients 
 }
 
-export function createClient(params: ClientParams): Client {
-    // define createClient
+export async function createClient(params: ClientParams): Promise<Client> {
+    const data = {
+        first_name: params.first_name,
+        last_name: params.last_name,
+        pesel: params.pesel,
+        status: "REGISTERED" as Status
+    } 
+
+    const client = await prisma.client.create({ data })
+    return client
 }
 
-export function updateClient(clientId: string | undefined, params: ClientParams): Client {
+export async function updateClient(clientId: string | undefined, params: ClientParams): Client {
     // define updateClient
 }
 
-export function updateClientStatus(clientId: string | undefined, status: Status): Client {
+export async function updateClientStatus(clientId: string | undefined, status: Status): Client {
     // define updateStatus
 }
 
-export function destroyClient(clientId: string | undefined): boolean {
+export async function destroyClient(clientId: string | undefined): boolean {
     // define destroy Client
 }
 
-export function listIntegrations(queryParams: ListIntegrationsQueryParams): Array<Integration> {
+export async function listIntegrations(queryParams: ListIntegrationsQueryParams): Array<Integration> {
     // define listIntegrations
 }

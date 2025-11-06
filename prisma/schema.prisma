@@ -16,7 +16,7 @@ model Client {
   status       Status
   note         String?
   createdAt    DateTime      @default(now()) @db.Timestamp(6)
-  updatedAt    DateTime      @updatedAt
+  updatedAt    DateTime?     @updatedAt
   integrations Integration[]
 }
 
