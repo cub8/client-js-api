@@ -2,7 +2,14 @@ export type Status = "REGISTERED" | "INTEGRATED" | "RESIGNED"
 export type IntegrationType = "API" | "INTERNAL"
 
 export interface ListCLientQueryParams {
-
+    peselEq?: string | string[];
+    peselLike?: string | string[];
+    firtNameEq?: string | string[];
+    firstNameLike?: string | string[];
+    lastNameEq?: string | string[];
+    lastNameLike?: string | string[];
+    statusEq?: string | string[];
+    statusLike?: string | string[];
 }
 
 export interface ListIntegrationsQueryParams {

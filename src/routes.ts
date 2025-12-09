@@ -11,9 +11,11 @@ export function setupRoutes() {
 
     app.get("/clients", (req: Request, res: Response) => {
         const queryParams = req.query
+        console.log(queryParams)
+        console.log(queryParams.statusIn)
         const clients = listClients(queryParams)
 
-        res.send(clients)
+        res.status(200).send(clients)
     })
 
     app.post("/clients", (req: Request, res: Response) => {
