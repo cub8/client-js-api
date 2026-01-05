@@ -4,5 +4,13 @@
         "scrollbar.shadow": "#00000000"
     },
     "typescript.tsdk": "node_modules/typescript/lib",
-    "prisma.pinToPrisma6": false
+    "prisma.pinToPrisma6": false,
+    "eslint.format.enable": true,
+    "[typescript]": {
+        "editor.defaultFormatter": "dbaeumer.vscode-eslint"
+    },
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll.eslint": "explicit"
+    }
 }
