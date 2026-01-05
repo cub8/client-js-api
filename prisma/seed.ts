@@ -4,14 +4,14 @@ const prisma = new PrismaClient()
 
 const clientData: Prisma.ClientCreateInput[] = [
     {
-        first_name: "John",
-        last_name: "Doe",
+        firstName: "John",
+        lastName: "Doe",
         pesel: '12345678901',
         status: "REGISTERED",
     },
     {
-        first_name: "John",
-        last_name: "Dowolski",
+        firstName: "John",
+        lastName: "Dowolski",
         pesel: '09876543211',
         status: "INTEGRATED",
         integrations: {
@@ -21,8 +21,8 @@ const clientData: Prisma.ClientCreateInput[] = [
         }
     },
     {
-        first_name: "Jan",
-        last_name: "Kowalski",
+        firstName: "Jan",
+        lastName: "Kowalski",
         pesel: '01315666991',
         status: "INTEGRATED",
         integrations: {
@@ -32,8 +32,8 @@ const clientData: Prisma.ClientCreateInput[] = [
         }
     },
     {
-        first_name: "Eligiusz",
-        last_name: "Niewiadomski",
+        firstName: "Eligiusz",
+        lastName: "Niewiadomski",
         pesel: "00000000000",
         status: "RESIGNED"
     }

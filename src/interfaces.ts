@@ -2,14 +2,14 @@ export type Status = "REGISTERED" | "INTEGRATED" | "RESIGNED"
 export type IntegrationType = "API" | "INTERNAL"
 
 export interface ListCLientQueryParams {
-    peselEq?: string | string[];
-    peselLike?: string | string[];
-    firtNameEq?: string | string[];
-    firstNameLike?: string | string[];
-    lastNameEq?: string | string[];
-    lastNameLike?: string | string[];
-    statusEq?: string | string[];
-    statusLike?: string | string[];
+    peselEq?: string;
+    peselIn?: string[];
+    firtNameEq?: string;
+    firstNameIn?: string[];
+    lastNameEq?: string;
+    lastNameIn?: string[];
+    statusEq?: string;
+    statusIn?: string[];
 }
 
 export interface ListIntegrationsQueryParams {
@@ -17,15 +17,15 @@ export interface ListIntegrationsQueryParams {
 }
 
 export interface ClientParams {
-    first_name: string,
-    last_name: string,
+    firstName: string,
+    lastName: string,
     pesel: string
 }
 
 export interface Client {
     id: number,
-    first_name: string,
-    last_name: string,
+    firstName: string,
+    lastName: string,
     pesel: string,
     status: Status,
     note: string | null,
