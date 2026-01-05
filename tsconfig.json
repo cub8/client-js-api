@@ -38,6 +38,14 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "allowImportingTsExtensions": true,
-    "emitDeclarationOnly": true
+    "emitDeclarationOnly": true,
+    "paths": {
+      "@/*": [
+        "./*"
+      ],
+      "@test/*": [
+        "./test/*"
+      ]
+    }
   }
 }

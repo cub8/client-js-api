@@ -2,6 +2,7 @@ import globals from "globals"
 import pluginJs from "@eslint/js"
 import tseslint from "typescript-eslint"
 import stylistic from "@stylistic/eslint-plugin"
+import vitest from "@vitest/eslint-plugin"
 
 export default [
   {
@@ -13,6 +14,7 @@ export default [
     files: ["**/*.{js,mjs,cjs,ts}"],
     plugins: {
       "@stylistic": stylistic,
+      vitest,
     },
     languageOptions: {
       globals: {
@@ -24,7 +26,6 @@ export default [
       "eqeqeq": ["warn", "smart"],
       "no-constructor-return": ["error"],
       "no-empty": ["warn"],
-      "no-unused-vars": ["warn", { "args": "none" }],
       "no-lonely-if": ["warn"],
       "no-nested-ternary": ["error"],
       "no-shadow": ["error"],
@@ -50,7 +51,14 @@ export default [
       "prefer-template": ["warn"],
       "yoda": ["warn"],
       "prefer-const": ["off"],
-
+      "@typescript-eslint/no-unused-vars": [
+        "error",
+        {
+          argsIgnorePattern: "^_",
+          varsIgnorePattern: "^_",
+          caughtErrorsIgnorePattern: "^_",
+        },
+      ],
       "@stylistic/member-delimiter-style": [
         "warn",
         {
@@ -117,6 +125,11 @@ export default [
           "allowTemplateLiterals": true,
         },
       ],
+
+      "vitest/consistent-test-it": ["warn", { "fn": "it" }],
+      "vitest/no-focused-tests": "error",
+      "vitest/no-disabled-tests": "warn",
+      "vitest/expect-expect": "warn",
     },
   },
 ]
