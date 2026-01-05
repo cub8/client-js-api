@@ -1,4 +1,4 @@
-import { type ClientListOutParams } from "./validations.ts"
+import { type ClientListOutParams } from "@src/validations.ts"
 
 type PrismaWhereQuery = Partial<Record<string, Record<string, string | string[]>>>
 

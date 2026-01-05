@@ -1,10 +1,8 @@
 import express, { type Request, type Response, type Application  } from "express"
-import { createClient, destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "./actions.ts"
+import { createClient, destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "@src/actions.ts"
 
-export function setupRoutes() {
+export function createServer() {
   const app: Application = express()
-  const port = process.env.PORT || 8000
-
   app.use(express.json())
 
   app.get("/", (req: Request, res: Response) => {
@@ -48,9 +46,9 @@ export function setupRoutes() {
 
   app.delete("/client/:clientId", async(req: Request, res: Response) => {
     const clientId = req.params.clientId
-    const is_destroyed = destroyClient(clientId)
+    const isDestroyed = destroyClient(clientId)
 
-    res.send({ destroyed: is_destroyed })
+    res.send({ destroyed: isDestroyed })
   })
 
   app.post("/integrations", async(req: Request, res: Response) => {
@@ -60,6 +58,6 @@ export function setupRoutes() {
     res.send(integrations)
   })
 
-  app.listen(port, () => {})
+  return app
 }
 
