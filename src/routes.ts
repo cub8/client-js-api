@@ -1,5 +1,7 @@
 import express, { type Request, type Response, type Application  } from "express"
-import { createClient, destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
+import { destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
+
+import createClient from "@src/actions/create_client"
 
 export function createServer() {
   const app: Application = express()
@@ -14,17 +16,23 @@ export function createServer() {
     const { clients, error } = await listClients(queryParams)
 
     if (error) {
-      res.status(422).send({ error })
-    } else {
-      res.status(200).send(clients)
+      return res.status(422).send({ error })
     }
+
+    res.status(200).send(clients)
   })
 
   app.post("/clients", async(req: Request, res: Response) => {
-    const params = JSON.parse(req.body)
-    const client = await createClient(params)
+    const params = req.body
 
-    res.send(client)
+    const { client, errors } = await createClient(params)
+
+    console.log(errors)
+
+    if (errors) {
+      return res.status(422).send(errors)
+    }
+    res.status(201).send(client)
   })
 
   app.patch("/client/:clientId", async(req: Request, res: Response) => {

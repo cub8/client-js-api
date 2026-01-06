@@ -5,7 +5,7 @@ import { validateListClientsParams, type RawClientListQuery } from "@src/validat
 
 type ListClientsResult = { error?: string; clients?: Client[] }
 
-export async function listClients(queryParams: RawClientListQuery) {
+export async function listClients(queryParams: RawClientListQuery): Promise<ListClientsResult> {
   const { valid, message, params } = validateListClientsParams(queryParams)
   if (valid === false) {
     return { error: `Provided invalid queryParams. ${message}` }
@@ -18,18 +18,6 @@ export async function listClients(queryParams: RawClientListQuery) {
   })
 
   return { clients }
-}
-
-export async function createClient(params: ClientParams) {
-  const data = {
-    firstName: params.firstName,
-    lastName: params.lastName,
-    pesel: params.pesel,
-    status: "REGISTERED" as Status,
-  }
-
-  const client = await prisma.client.create({ data })
-  return client
 }
 
 export async function updateClient(clientId: string | undefined, params: ClientParams) {

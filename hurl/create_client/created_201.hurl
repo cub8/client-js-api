@@ -1,4 +1,5 @@
 POST {{uri}}/clients
+Content-Type: application/json
 ```
 {
     "firstName": "Adam",

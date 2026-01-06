@@ -19,6 +19,7 @@ export default [
     languageOptions: {
       globals: {
         ...globals.node,
+        ...vitest.environments.env.globals,
       },
     },
     rules: {
