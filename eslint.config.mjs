@@ -6,7 +6,7 @@ import vitest from "@vitest/eslint-plugin"
 
 export default [
   {
-    ignores: ["dist/", "node_modules/", "prisma/", "generated/"],
+    ignores: ["dist/", "node_modules/", "generated/"],
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
@@ -51,6 +51,7 @@ export default [
       "prefer-template": ["warn"],
       "yoda": ["warn"],
       "prefer-const": ["off"],
+
       "@typescript-eslint/no-unused-vars": [
         "error",
         {
@@ -59,6 +60,10 @@ export default [
           caughtErrorsIgnorePattern: "^_",
         },
       ],
+      "@typescript-eslint/no-restricted-imports": ["error", {
+        "patterns": ["../**", "./**"],
+      }],
+
       "@stylistic/member-delimiter-style": [
         "warn",
         {

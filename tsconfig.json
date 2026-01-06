@@ -48,6 +48,12 @@
       ],
       "@test/*": [
         "./test/*"
+      ],
+      "@factories/*": [
+        "./test/factories/*"
+      ],
+      "@prisma/*": [
+        "./generated/prisma/*"
       ]
     }
   }

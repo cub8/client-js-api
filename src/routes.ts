@@ -1,5 +1,5 @@
 import express, { type Request, type Response, type Application  } from "express"
-import { createClient, destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "@src/actions.ts"
+import { createClient, destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
 
 export function createServer() {
   const app: Application = express()

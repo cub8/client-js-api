@@ -1,7 +1,7 @@
-import { type Client, type Integration, type ClientWithIntegrations, type ListCLientQueryParams, type ClientParams, type Status, type ListIntegrationsQueryParams } from "./interfaces.ts"
-import prisma from "@src/prisma.ts"
-import { buildListClientsQuery } from "@src/queryBuilders.ts"
-import { validateListClientsParams, type RawClientListQuery } from "@src/validations.ts"
+import { type Client, type Integration, type ClientWithIntegrations, type ListCLientQueryParams, type ClientParams, type Status, type ListIntegrationsQueryParams } from "@src/interfaces"
+import prisma from "@src/prisma"
+import { buildListClientsQuery } from "@src/queryBuilders"
+import { validateListClientsParams, type RawClientListQuery } from "@src/validations"
 
 type ListClientsResult = { error?: string; clients?: Client[] }
 

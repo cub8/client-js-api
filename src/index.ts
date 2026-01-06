@@ -1,4 +1,4 @@
-import { createServer } from "./routes.ts"
+import { createServer } from "@src/routes"
 import dotenv from "dotenv"
 
 dotenv.config()
