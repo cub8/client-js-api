@@ -1,6 +1,7 @@
 import type { Client, Status, IntegrationType } from "@prisma/client"
 import prisma from "@src/prisma"
 import { Factory } from "fishery"
+import { faker } from "@faker-js/faker"
 
 type Integration = {
   type: IntegrationType
@@ -34,9 +35,9 @@ const clientFactory = ClientFactory.define(({ sequence, params, onCreate }) => {
 
   return {
     id: sequence,
-    firstName: "John",
-    lastName: "Doe",
-    pesel: "12345678901",
+    firstName: faker.person.firstName(),
+    lastName: faker.person.lastName(),
+    pesel: faker.string.numeric(11),
     status: "REGISTERED" as Status,
     note: null,
     integrations: [],

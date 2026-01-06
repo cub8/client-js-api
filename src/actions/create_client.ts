@@ -1,7 +1,7 @@
 import type { Client } from "@/generated/prisma/browser"
 import { type ClientParams, type Status } from "@src/interfaces"
 import prisma from "@src/prisma"
-import { createClientSchema } from "@src/validations/client.schema"
+import { createClientSchema } from "@/src/validations/create_client.schema"
 import { z } from "zod"
 
 type CreateClientReturnType = {

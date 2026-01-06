@@ -8,7 +8,7 @@ export const createClientSchema = z.object({
     .min(1, "Last name is required")
     .max(80, "Last name must be max 80 characters long"),
   pesel: z.string()
-    .length(11, "PESEL must be exactly 11 character long")
+    .length(11, "PESEL must be exactly 11 character longs")
     .regex(/^\d+$/, "PESEL must contain only digits"),
   status: z.enum(["REGISTERED", "INTEGRATED", "RESIGNED"]),
 })

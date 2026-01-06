@@ -16,7 +16,7 @@ export function createServer() {
     const { clients, error } = await listClients(queryParams)
 
     if (error) {
-      return res.status(422).send({ error })
+      return res.status(400).send({ error })
     }
 
     res.status(200).send(clients)
