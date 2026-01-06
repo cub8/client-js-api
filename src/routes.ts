@@ -27,8 +27,6 @@ export function createServer() {
 
     const { client, errors } = await createClient(params)
 
-    console.log(errors)
-
     if (errors) {
       return res.status(422).send(errors)
     }
