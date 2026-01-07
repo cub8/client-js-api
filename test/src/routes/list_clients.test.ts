@@ -37,6 +37,12 @@ describe("GET /clients", async() => {
 
   describe("returns clients based on provided parameters in URL", async() => {
     describe("valueEq", async() => {
+      it("returns everyone if provided empty valueEq", async() => {
+        const response = await request(app).get("/clients?firstNameEq=")
+        const clients = response.body
+        expect(clients.length).toBe(4)
+      })
+
       it("returns clients based on valueEq", async() => {
         const response = await request(app).get("/clients?firstNameEq=Karol")
         const clients = response.body
@@ -94,6 +100,23 @@ describe("GET /clients", async() => {
     })
 
     describe("valueIn", async() => {
+      it("returns nothing if provided empty valueIn", async() => {
+        const response = await request(app).get("/clients?firstNameIn=")
+        const clients = response.body
+        expect(clients.length).toBe(0)
+      })
+
+      it("returns clients based on a single valueIn", async() => {
+        const response = await request(app).get("/clients?firstNameIn=Antoni")
+        const clients = response.body
+        expect(clients.length).toBe(1)
+
+        const antoni = clients[0]
+        expect(antoni).not.toBeNullable()
+        expect(antoni.lastName).toBe("Baka")
+        expect(antoni.integrations.length).toBe(2)
+      })
+
       it("returns clients based on valueIn", async() => {
         const response = await request(app).get("/clients?firstNameIn=Antoni&firstNameIn=Eligiusz")
         const clients = response.body
@@ -181,6 +204,8 @@ describe("GET /clients", async() => {
   it("fails if provided same Eq fields twice thus providing an array", async() => {
     const response = await request(app).get("/clients?firstNameEq=Karol&firstNameEq=Antoni")
     expect(response.status).toBe(400)
-    expect(response.body.error).toBe("Provided invalid queryParams. firstNameEq must be a string.")
+
+    const errors = response.body.error
+    expect(errors.firstNameEq).toContain("Invalid input: expected string, received array")
   })
 })

@@ -6,7 +6,7 @@ import { z } from "zod"
 
 type CreateClientReturnType = {
   client?: Client
-  errors?: { pesel?: string[]
+  error?: { pesel?: string[]
     firstName?: string[]
     lastName?: string[]
     status?: string[] }
@@ -24,7 +24,7 @@ export default async function createClient(params: ClientParams): Promise<Create
 
   if (!result.success) {
     return {
-      errors: z.flattenError(result.error!).fieldErrors,
+      error: z.flattenError(result.error!).fieldErrors,
     }
   }
 

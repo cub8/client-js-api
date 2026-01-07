@@ -1,7 +1,8 @@
 import express, { type Request, type Response, type Application  } from "express"
-import { destroyClient, listClients, listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
+import { destroyClient, listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
 
 import createClient from "@src/actions/create_client"
+import listClients from "@src/actions/list_clients"
 
 export function createServer() {
   const app: Application = express()
@@ -25,10 +26,10 @@ export function createServer() {
   app.post("/clients", async(req: Request, res: Response) => {
     const params = req.body
 
-    const { client, errors } = await createClient(params)
+    const { client, error } = await createClient(params)
 
-    if (errors) {
-      return res.status(422).send(errors)
+    if (error) {
+      return res.status(422).send(error)
     }
     res.status(201).send(client)
   })
