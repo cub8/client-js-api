@@ -1,8 +1,9 @@
 import express, { type Request, type Response, type Application  } from "express"
-import { destroyClient, listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
+import { listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
 
 import createClient from "@src/actions/create_client"
 import listClients from "@src/actions/list_clients"
+import destroyClient from "@src/actions/destroy_client"
 
 export function createServer() {
   const app: Application = express()
@@ -34,6 +35,7 @@ export function createServer() {
     res.status(201).send(client)
   })
 
+  // WIP
   app.patch("/client/:clientId", async(req: Request, res: Response) => {
     const clientId = req.params.clientId
     const params = req.body
@@ -42,6 +44,7 @@ export function createServer() {
     res.send(client)
   })
 
+  // WIP
   app.patch("/client/:clientId/update_status", async(req: Request, res: Response) => {
     const clientId = req.params.clientId
     const params = req.body
@@ -52,12 +55,17 @@ export function createServer() {
   })
 
   app.delete("/client/:clientId", async(req: Request, res: Response) => {
-    const clientId = req.params.clientId
-    const isDestroyed = destroyClient(clientId)
+    const clientId = req.params.clientId!
+    const { isDestroyed, error } = await destroyClient(clientId)
 
-    res.send({ destroyed: isDestroyed })
+    if (error) {
+      return res.status(error.code).send({ destroyed: isDestroyed, error: error.message })
+    }
+
+    res.status(200).send({ destroyed: isDestroyed })
   })
 
+  // WIP<
   app.post("/integrations", async(req: Request, res: Response) => {
     const queryParams = req.query
     const integrations = listIntegrations(queryParams)

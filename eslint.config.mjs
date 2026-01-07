@@ -136,6 +136,14 @@ export default [
       "vitest/no-focused-tests": "error",
       "vitest/no-disabled-tests": "warn",
       "vitest/expect-expect": "warn",
+
+      "no-restricted-syntax": [
+        "error",
+        {
+          "selector": "TSEnumDeclaration",
+          "message": "Don't declare enums",
+        },
+      ],
     },
   },
 ]
