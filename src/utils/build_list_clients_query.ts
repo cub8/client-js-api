@@ -1,4 +1,4 @@
-import type { Prisma } from "@prisma/browser"
+import type { Prisma } from "@prisma/client"
 import type { ListClientsInput } from "@src/validations/list_clients.schema"
 
 type WhereQueryFilter = { equals?: string; in?: string[]; mode?: "insensitive" }

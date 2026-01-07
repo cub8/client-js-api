@@ -7,6 +7,7 @@ import { z } from "zod"
 type ListClientClients = Prisma.ClientGetPayload<{
   include: { integrations: true }
 }>
+
 type ListClientErrors = {
   firstNameEq?: string[]
   lastNameEq?: string[]

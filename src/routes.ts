@@ -36,7 +36,7 @@ export function createServer() {
 
   app.patch("/client/:clientId", async(req: Request, res: Response) => {
     const clientId = req.params.clientId
-    const params = JSON.parse(req.body)
+    const params = req.body
     const client = updateClient(clientId, params)
 
     res.send(client)
@@ -44,7 +44,7 @@ export function createServer() {
 
   app.patch("/client/:clientId/update_status", async(req: Request, res: Response) => {
     const clientId = req.params.clientId
-    const params = JSON.parse(req.body)
+    const params = req.body
     const status = params.status
     const client = updateClientStatus(clientId, status)
 

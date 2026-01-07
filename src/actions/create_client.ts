@@ -1,15 +1,24 @@
-import type { Client } from "@/generated/prisma/browser"
-import { type ClientParams, type Status } from "@src/interfaces"
+import type { Client, Status } from "@prisma/client"
 import prisma from "@src/prisma"
 import { createClientSchema } from "@/src/validations/create_client.schema"
 import { z } from "zod"
 
+interface ClientParams {
+  firstName: string
+  lastName: string
+  pesel: string
+}
+
+type CreateClientError = {
+  pesel?: string[]
+  firstName?: string[]
+  lastName?: string[]
+  status?: string[]
+}
+
 type CreateClientReturnType = {
   client?: Client
-  error?: { pesel?: string[]
-    firstName?: string[]
-    lastName?: string[]
-    status?: string[] }
+  error?: CreateClientError
 }
 
 export default async function createClient(params: ClientParams): Promise<CreateClientReturnType> {
