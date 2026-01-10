@@ -1,4 +1,4 @@
-import { Prisma } from "@/generated/prisma/client"
+import { Prisma } from "@prisma/client"
 import type { NextFunction, Request, Response } from "express"
 import { ValidationError } from "@src/utils/errors"
 

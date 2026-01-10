@@ -1,6 +1,6 @@
 import type { Client } from "@prisma/client"
 import prisma from "@src/prisma"
-import { createClientSchema } from "@src/validations/create_client.schema"
+import { createClientSchema } from "@src/schemas/create_client.schema"
 import { z } from "zod"
 import { ValidationError } from "@src/utils/errors"
 

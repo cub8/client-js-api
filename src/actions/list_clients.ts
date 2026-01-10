@@ -1,6 +1,6 @@
 import type { Prisma } from "@prisma/client"
 import prisma from "@src/prisma"
-import { listClientsSchema  } from "@src/validations/list_clients.schema"
+import { listClientsSchema  } from "@src/schemas/list_clients.schema"
 import buildListClientsQuery from "@src/utils/build_list_clients_query"
 import { z } from "zod"
 

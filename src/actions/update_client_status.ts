@@ -1,6 +1,6 @@
 import type { Client, Status } from "@prisma/client"
 import prisma from "@src/prisma"
-import { updateClientStatusSchema } from "@src/validations/update_client_status.schema"
+import { updateClientStatusSchema } from "@src/schemas/update_client_status.schema"
 import { z } from "zod"
 import { ValidationError } from "@src/utils/errors"
 

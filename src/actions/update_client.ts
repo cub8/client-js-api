@@ -1,7 +1,7 @@
 import type { Client } from "@prisma/client"
 import prisma from "@src/prisma"
-import { updateClientSchema } from "@src/validations/update_client.schema"
-import z from "zod"
+import { updateClientSchema } from "@src/schemas/update_client.schema"
+import { z } from "zod"
 import { ValidationError } from "@src/utils/errors"
 
 interface UpdateClientParams {
