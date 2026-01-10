@@ -35,14 +35,14 @@ describe("GET /clients", async() => {
   })
 
   it("ignores non existing parameters", async() => {
-    const response = await request(app).get("/clients?agamemnonEq=Troja")
+    const response = await request(app).get("/api/clients?agamemnonEq=Troja")
 
     expect(response.status).toBe(200)
     expect(response.body.length).toBe(4)
   })
 
   it("fails if provided same Eq fields twice thus providing an array", async() => {
-    const response = await request(app).get("/clients?firstNameEq=Karol&firstNameEq=Antoni")
+    const response = await request(app).get("/api/clients?firstNameEq=Karol&firstNameEq=Antoni")
     expect(response.status).toBe(400)
 
     const errors = response.body.error

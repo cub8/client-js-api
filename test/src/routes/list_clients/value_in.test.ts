@@ -36,13 +36,13 @@ describe("GET /clients by valueIn", async() => {
   })
 
   it("returns nothing if provided empty valueIn", async() => {
-    const response = await request(app).get("/clients?firstNameIn=")
+    const response = await request(app).get("/api/clients?firstNameIn=")
     const clients = response.body
     expect(clients.length).toBe(0)
   })
 
   it("returns clients based on a single valueIn", async() => {
-    const response = await request(app).get("/clients?firstNameIn=Antoni")
+    const response = await request(app).get("/api/clients?firstNameIn=Antoni")
     const clients = response.body
     expect(clients.length).toBe(1)
 
@@ -53,7 +53,7 @@ describe("GET /clients by valueIn", async() => {
   })
 
   it("returns clients based on valueIn", async() => {
-    const response = await request(app).get("/clients?firstNameIn=Antoni&firstNameIn=Eligiusz")
+    const response = await request(app).get("/api/clients?firstNameIn=Antoni&firstNameIn=Eligiusz")
     const clients = response.body
     expect(clients.length).toBe(2)
 
@@ -73,7 +73,7 @@ describe("GET /clients by valueIn", async() => {
   })
 
   it("returns clients based on last names", async() => {
-    const response = await request(app).get("/clients?lastNameIn=Nowak&lastNameIn=Niewiadomski")
+    const response = await request(app).get("/api/clients?lastNameIn=Nowak&lastNameIn=Niewiadomski")
     const clients = response.body
     expect(clients.length).toBe(3)
 
@@ -94,7 +94,7 @@ describe("GET /clients by valueIn", async() => {
   })
 
   it("returns based on pesels", async() => {
-    const response = await request(app).get("/clients?peselIn=12345678901&peselIn=00000000000")
+    const response = await request(app).get("/api/clients?peselIn=12345678901&peselIn=00000000000")
     const clients = response.body
     expect(clients.length).toBe(2)
 
@@ -112,7 +112,7 @@ describe("GET /clients by valueIn", async() => {
   })
 
   it("returns based on statuses", async() => {
-    const response = await request(app).get("/clients?statusIn=REGISTERED&statusIn=resigned")
+    const response = await request(app).get("/api/clients?statusIn=REGISTERED&statusIn=resigned")
     const clients = response.body
     expect(clients.length).toBe(2)
 

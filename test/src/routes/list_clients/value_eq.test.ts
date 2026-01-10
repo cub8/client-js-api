@@ -36,13 +36,13 @@ describe("GET /clients by valueEq", async() => {
   })
 
   it("returns everyone if provided empty valueEq", async() => {
-    const response = await request(app).get("/clients?firstNameEq=")
+    const response = await request(app).get("/api/clients?firstNameEq=")
     const clients = response.body
     expect(clients.length).toBe(4)
   })
 
   it("returns clients based on valueEq", async() => {
-    const response = await request(app).get("/clients?firstNameEq=Karol")
+    const response = await request(app).get("/api/clients?firstNameEq=Karol")
     const clients = response.body
     const client = clients[0]
 
@@ -54,7 +54,7 @@ describe("GET /clients by valueEq", async() => {
   })
 
   it("returns clients based on last name", async() => {
-    const response = await request(app).get("/clients?lastNameEq=Nowak")
+    const response = await request(app).get("/api/clients?lastNameEq=Nowak")
     const clients = response.body
     expect(clients.length).toBe(2)
 
@@ -72,7 +72,7 @@ describe("GET /clients by valueEq", async() => {
   })
 
   it("returns based on pesel", async() => {
-    const response = await request(app).get("/clients?peselEq=12345678901")
+    const response = await request(app).get("/api/clients?peselEq=12345678901")
     const clients = response.body
     expect(clients.length).toBe(1)
 
@@ -81,7 +81,7 @@ describe("GET /clients by valueEq", async() => {
   })
 
   it("returns based on status", async() => {
-    const response = await request(app).get("/clients?statusEq=integrated")
+    const response = await request(app).get("/api/clients?statusEq=integrated")
     const clients = response.body
     expect(clients.length).toBe(2)
 

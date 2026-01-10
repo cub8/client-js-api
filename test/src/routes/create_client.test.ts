@@ -12,7 +12,7 @@ describe("POST /clients", () => {
     }
 
     const response = await request(app)
-      .post("/clients")
+      .post("/api/clients")
       .set("Accept", "application/json")
       .send(payload)
 
@@ -35,7 +35,7 @@ describe("POST /clients", () => {
     }
 
     const response = await request(app)
-      .post("/clients")
+      .post("/api/clients")
       .set("Accept", "application/json")
       .send(payload)
 
@@ -54,7 +54,7 @@ describe("POST /clients", () => {
     }
 
     const response = await request(app)
-      .post("/clients")
+      .post("/api/clients")
       .set("Accept", "application/json")
       .send(payload)
 

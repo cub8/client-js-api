@@ -24,7 +24,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}`)
+      .patch(`/api/client/${clientId}`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -42,7 +42,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}`)
+      .patch(`/api/client/${clientId}`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -60,7 +60,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch("/client/invalid")
+      .patch("/api/client/invalid")
       .set("Accept", "application/json")
       .send(payload)
 
@@ -74,7 +74,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch("/client/99999")
+      .patch("/api/client/99999")
       .set("Accept", "application/json")
       .send(payload)
 
@@ -88,7 +88,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}`)
+      .patch(`/api/client/${clientId}`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -102,7 +102,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}`)
+      .patch(`/api/client/${clientId}`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -116,7 +116,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}`)
+      .patch(`/api/client/${clientId}`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -131,7 +131,7 @@ describe("PATCH /client/:clientId", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}`)
+      .patch(`/api/client/${clientId}`)
       .set("Accept", "application/json")
       .send(payload)
 

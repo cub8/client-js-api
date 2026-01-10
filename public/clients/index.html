@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Clients</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 20px; }
+    table { border-collapse: collapse; width: 100%; max-width: 800px; }
+    th, td { border: 1px solid #ddd; padding: 10px; text-align: left; }
+    th { background-color: #f2f2f2; }
+    .error { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Clients</h1>
+  <div id="content"></div>
+
+  <script>
+    async function loadClients() {
+      try {
+        const response = await fetch('/api/clients')
+        const data = await response.json()
+
+        if (data.error) {
+          document.getElementById('content').innerHTML = `<p class="error">Error: ${data.error}</p>`
+          return
+        }
+
+        let html = '<table><thead><tr><th>ID</th><th>First Name</th><th>Last Name</th><th>PESEL</th><th>Status</th></tr></thead><tbody>'
+        data.forEach(client => {
+          html += `<tr><td>${client.id}</td><td>${client.firstName}</td><td>${client.lastName}</td><td>${client.pesel}</td><td>${client.status}</td></tr>`
+        })
+        html += '</tbody></table>'
+        document.getElementById('content').innerHTML = html
+      } catch (error) {
+        document.getElementById('content').innerHTML = `<p class="error">Failed to load clients: ${error.message}</p>`
+      }
+    }
+
+    loadClients()
+  </script>
+</body>
+</html>

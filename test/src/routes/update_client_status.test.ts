@@ -23,7 +23,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}/update_status`)
+      .patch(`/api/client/${clientId}/update_status`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -37,7 +37,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}/update_status`)
+      .patch(`/api/client/${clientId}/update_status`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -51,7 +51,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}/update_status`)
+      .patch(`/api/client/${clientId}/update_status`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -68,7 +68,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     }
 
     const response = await request(app)
-      .patch("/client/invalid/update_status")
+      .patch("/api/client/invalid/update_status")
       .set("Accept", "application/json")
       .send(payload)
 
@@ -82,7 +82,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     }
 
     const response = await request(app)
-      .patch("/client/99999/update_status")
+      .patch("/api/client/99999/update_status")
       .set("Accept", "application/json")
       .send(payload)
 
@@ -96,7 +96,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     }
 
     const response = await request(app)
-      .patch(`/client/${clientId}/update_status`)
+      .patch(`/api/client/${clientId}/update_status`)
       .set("Accept", "application/json")
       .send(payload)
 
@@ -108,7 +108,7 @@ describe("PATCH /client/:clientId/update_status", () => {
     const payload = {}
 
     const response = await request(app)
-      .patch(`/client/${clientId}/update_status`)
+      .patch(`/api/client/${clientId}/update_status`)
       .set("Accept", "application/json")
       .send(payload)
 
