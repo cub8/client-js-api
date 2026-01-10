@@ -22,19 +22,6 @@ export default async function destroyClient(clientId: string): Promise<DestroyCl
     }
   }
 
-  const client = await prisma.client.findFirst({
-    where: {
-      id: parsedClientId,
-    },
-  })
-
-  if (!client) {
-    return {
-      isDestroyed: false,
-      error: { message: "User not found", code: 404 },
-    }
-  }
-
   await prisma.client.delete({
     where: {
       id: parsedClientId,

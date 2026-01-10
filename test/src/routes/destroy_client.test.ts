@@ -23,6 +23,6 @@ describe("DELETE /client/:clientId", () => {
   it("should return 404 if no user exists", async() => {
     const response = await request(app).delete(`/client/1`)
     expect(response.status).toBe(404)
-    expect(response.body.error).toEqual("User not found")
+    expect(response.body.error).toEqual("Resource not found")
   })
 })

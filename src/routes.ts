@@ -1,10 +1,10 @@
 import express, { type Request, type Response, type Application, type NextFunction } from "express"
-import { updateClientStatus  } from "@src/actions"
 import { handlePrismaRecordNotFound } from "@src/utils/middleware"
 
 import listClients from "@src/actions/list_clients"
 import createClient from "@src/actions/create_client"
 import updateClient from "@src/actions/update_client"
+import updateClientStatus from "@src/actions/update_client_status"
 import destroyClient from "@src/actions/destroy_client"
 
 export function createServer() {
@@ -51,12 +51,15 @@ export function createServer() {
     res.status(200).send(client)
   })
 
-  // WIP
   app.patch("/client/:clientId/update_status", async(req: Request, res: Response) => {
-    const clientId = req.params.clientId
-    const params = req.body
-    const status = params.status
-    const client = updateClientStatus(clientId, status)
+    const clientId = req.params.clientId!
+    const status = req.body.status
+    const { client, error } = await updateClientStatus(clientId, status)
+
+    if (error) {
+      const { errors, code } = error
+      return res.status(code).send(errors)
+    }
 
     res.send(client)
   })
