@@ -1,12 +1,15 @@
-import express, { type Request, type Response, type Application  } from "express"
-import { listIntegrations, updateClient, updateClientStatus  } from "@src/actions"
+import express, { type Request, type Response, type Application, type NextFunction } from "express"
+import { updateClientStatus  } from "@src/actions"
+import { handlePrismaRecordNotFound } from "@src/utils/middleware"
 
-import createClient from "@src/actions/create_client"
 import listClients from "@src/actions/list_clients"
+import createClient from "@src/actions/create_client"
+import updateClient from "@src/actions/update_client"
 import destroyClient from "@src/actions/destroy_client"
 
 export function createServer() {
   const app: Application = express()
+
   app.use(express.json())
 
   app.get("/", (req: Request, res: Response) => {
@@ -35,13 +38,17 @@ export function createServer() {
     res.status(201).send(client)
   })
 
-  // WIP
-  app.patch("/client/:clientId", async(req: Request, res: Response) => {
-    const clientId = req.params.clientId
+  app.patch("/client/:clientId", async(req: Request, res: Response, _next: NextFunction) => {
+    const clientId = req.params.clientId!
     const params = req.body
-    const client = updateClient(clientId, params)
+    const { client, error } = await updateClient(clientId, params)
 
-    res.send(client)
+    if (error) {
+      const { errors, code } = error
+      return res.status(code).send(errors)
+    }
+
+    res.status(200).send(client)
   })
 
   // WIP
@@ -65,13 +72,7 @@ export function createServer() {
     res.status(200).send({ destroyed: isDestroyed })
   })
 
-  // WIP<
-  app.post("/integrations", async(req: Request, res: Response) => {
-    const queryParams = req.query
-    const integrations = listIntegrations(queryParams)
-
-    res.send(integrations)
-  })
+  app.use(handlePrismaRecordNotFound)
 
   return app
 }

@@ -1,9 +1,9 @@
-import type { Client, Status } from "@prisma/client"
+import type { Client } from "@prisma/client"
 import prisma from "@src/prisma"
 import { createClientSchema } from "@/src/validations/create_client.schema"
 import { z } from "zod"
 
-interface ClientParams {
+interface CreateClientParams {
   firstName: string
   lastName: string
   pesel: string
@@ -13,7 +13,6 @@ type CreateClientError = {
   pesel?: string[]
   firstName?: string[]
   lastName?: string[]
-  status?: string[]
 }
 
 type CreateClientReturnType = {
@@ -21,12 +20,11 @@ type CreateClientReturnType = {
   error?: CreateClientError
 }
 
-export default async function createClient(params: ClientParams): Promise<CreateClientReturnType> {
+export default async function createClient(params: CreateClientParams): Promise<CreateClientReturnType> {
   const dataToValidate = {
     firstName: params.firstName || "",
     lastName: params.lastName || "",
     pesel: params.pesel,
-    status: "REGISTERED" as Status,
   }
 
   const result = createClientSchema.safeParse(dataToValidate)
@@ -37,7 +35,12 @@ export default async function createClient(params: ClientParams): Promise<Create
     }
   }
 
-  const client = await prisma.client.create({ data: result.data })
+  const client = await prisma.client.create({
+    data: {
+      ...result.data,
+      status: "REGISTERED",
+    },
+  })
 
   return { client }
 }

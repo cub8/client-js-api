@@ -10,7 +10,6 @@ export const createClientSchema = z.object({
   pesel: z.string()
     .length(11, "PESEL must be exactly 11 character long")
     .regex(/^\d+$/, "PESEL must contain only digits"),
-  status: z.enum(["REGISTERED", "INTEGRATED", "RESIGNED"]),
 })
 
 export type CreateClientInput = z.infer<typeof createClientSchema>

@@ -1,4 +1,3 @@
-import { Prisma } from "@/generated/prisma/client"
 import prisma from "@src/prisma"
 
 type DestroyClientError = {
@@ -23,24 +22,24 @@ export default async function destroyClient(clientId: string): Promise<DestroyCl
     }
   }
 
-  try {
-    await prisma.client.delete({
-      where: {
-        id: parsedClientId,
-      },
-    })
-  } catch(e) {
-    if (e instanceof Prisma.PrismaClientKnownRequestError) {
-      if (e.code === "P2025") {
-        return {
-          isDestroyed: false,
-          error: { message: "User not found", code: 404 },
-        }
-      }
-    }
+  const client = await prisma.client.findFirst({
+    where: {
+      id: parsedClientId,
+    },
+  })
 
-    throw e
+  if (!client) {
+    return {
+      isDestroyed: false,
+      error: { message: "User not found", code: 404 },
+    }
   }
+
+  await prisma.client.delete({
+    where: {
+      id: parsedClientId,
+    },
+  })
 
   return { isDestroyed: true }
 }
