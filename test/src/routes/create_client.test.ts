@@ -41,7 +41,7 @@ describe("POST /clients", () => {
 
     expect(response.status).toBe(422)
 
-    const errors = response.body
+    const errors = response.body.error
     expect(errors.firstName).toContain("First name must be max 40 characters long")
     expect(errors.lastName).toContain("Last name must be max 80 characters long")
     expect(errors.pesel).toContain("PESEL must be exactly 11 character long")
@@ -60,7 +60,7 @@ describe("POST /clients", () => {
 
     expect(response.status).toBe(422)
 
-    const errors = response.body
+    const errors = response.body.error
     expect(errors.firstName).toContain("First name is required")
     expect(errors.lastName).toContain("Last name is required")
   })

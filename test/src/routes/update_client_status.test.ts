@@ -101,7 +101,7 @@ describe("PATCH /client/:clientId/update_status", () => {
       .send(payload)
 
     expect(response.status).toBe(422)
-    expect(response.body.status).toBeDefined()
+    expect(response.body.error.status).toBeDefined()
   })
 
   it("should return 422 if status is missing", async() => {
@@ -113,6 +113,6 @@ describe("PATCH /client/:clientId/update_status", () => {
       .send(payload)
 
     expect(response.status).toBe(422)
-    expect(response.body.status).toBeDefined()
+    expect(response.body.error.status).toBeDefined()
   })
 })

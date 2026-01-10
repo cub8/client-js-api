@@ -93,7 +93,7 @@ describe("PATCH /client/:clientId", () => {
       .send(payload)
 
     expect(response.status).toBe(422)
-    expect(response.body.firstName).toContain("First name must be max 40 characters long")
+    expect(response.body.error.firstName).toContain("First name must be max 40 characters long")
   })
 
   it("should return 422 if provided invalid lastName", async() => {
@@ -107,7 +107,7 @@ describe("PATCH /client/:clientId", () => {
       .send(payload)
 
     expect(response.status).toBe(422)
-    expect(response.body.lastName).toContain("Last name must be max 80 characters long")
+    expect(response.body.error.lastName).toContain("Last name must be max 80 characters long")
   })
 
   it("should return 422 if provided invalid pesel", async() => {
@@ -121,8 +121,8 @@ describe("PATCH /client/:clientId", () => {
       .send(payload)
 
     expect(response.status).toBe(422)
-    expect(response.body.pesel).toContain("PESEL must be exactly 11 character long")
-    expect(response.body.pesel).toContain("PESEL must contain only digits")
+    expect(response.body.error.pesel).toContain("PESEL must be exactly 11 character long")
+    expect(response.body.error.pesel).toContain("PESEL must contain only digits")
   })
 
   it("should return 422 if provided empty firstName", async() => {
@@ -136,6 +136,6 @@ describe("PATCH /client/:clientId", () => {
       .send(payload)
 
     expect(response.status).toBe(422)
-    expect(response.body.firstName).toContain("First name must be min 1 character long")
+    expect(response.body.error.firstName).toContain("First name must be min 1 character long")
   })
 })

@@ -1,5 +1,6 @@
 import { Prisma } from "@/generated/prisma/client"
 import type { NextFunction, Request, Response } from "express"
+import { ValidationError } from "@src/utils/errors"
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -32,4 +33,11 @@ export function validateClientId(req: Request, res: Response, next: NextFunction
   req.parsedClientId = clientId
 
   next()
+}
+
+export function handleValidationError(err: Error, req: Request, res: Response, next: NextFunction) {
+  if (err instanceof ValidationError) {
+    return res.status(422).send({ error: err.fieldErrors })
+  }
+  next(err)
 }

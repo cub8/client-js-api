@@ -2,38 +2,20 @@ import type { Client, Status } from "@prisma/client"
 import prisma from "@src/prisma"
 import { updateClientStatusSchema } from "@src/validations/update_client_status.schema"
 import { z } from "zod"
+import { ValidationError } from "@src/utils/errors"
 
-type UpdateClientError = {
-  clientId?: string[]
-  status?: string[]
-}
-
-type UpdateClientReturnType = {
-  client?: Client
-  error?: {
-    code: number
-    errors: UpdateClientError
-  }
-}
-
-export default async function updateClientStatus(clientId: number, status: Status): Promise<UpdateClientReturnType> {
-  const parsedClientId = Number(clientId)
+export default async function updateClientStatus(clientId: number, status: Status): Promise<Client> {
   const dataToValidate = { status }
   const result = updateClientStatusSchema.safeParse(dataToValidate)
 
   if (!result.success) {
-    return {
-      error: {
-        errors: z.flattenError(result.error!).fieldErrors,
-        code: 422,
-      },
-    }
+    throw new ValidationError(z.flattenError(result.error!).fieldErrors)
   }
 
   const updatedClient = await prisma.client.update({
-    where: { id: parsedClientId },
+    where: { id: clientId },
     data: result.data,
   })
 
-  return { client: updatedClient }
+  return updatedClient
 }
