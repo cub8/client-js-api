@@ -1,6 +1,15 @@
 import { Prisma } from "@/generated/prisma/client"
 import type { NextFunction, Request, Response } from "express"
 
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Express {
+    interface Request {
+      parsedClientId?: number
+    }
+  }
+}
+
 export function handlePrismaRecordNotFound(err: Error, req: Request, res: Response, next: NextFunction) {
   if (err instanceof Prisma.PrismaClientKnownRequestError) {
     if (err.code === "P2025") {
@@ -11,4 +20,16 @@ export function handlePrismaRecordNotFound(err: Error, req: Request, res: Respon
   }
 
   next(err)
+}
+
+export function validateClientId(req: Request, res: Response, next: NextFunction) {
+  const clientId = Number(req.params.clientId)
+
+  if (isNaN(clientId)) {
+    return res.status(400).send({ error: { clientId: ["Provided invalid clientID"] } })
+  }
+
+  req.parsedClientId = clientId
+
+  next()
 }

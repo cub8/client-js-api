@@ -17,7 +17,7 @@ describe("DELETE /client/:clientId", () => {
   it("should return 400 if clientID is not a number", async() => {
     const response = await request(app).delete(`/client/jajcarz`)
     expect(response.status).toBe(400)
-    expect(response.body.error).toEqual("Provided invalid ID")
+    expect(response.body.error.clientId).toContain("Provided invalid clientID")
   })
 
   it("should return 404 if no user exists", async() => {

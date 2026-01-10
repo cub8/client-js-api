@@ -1,5 +1,5 @@
 import express, { type Request, type Response, type Application, type NextFunction } from "express"
-import { handlePrismaRecordNotFound } from "@src/utils/middleware"
+import { handlePrismaRecordNotFound, validateClientId } from "@src/utils/middleware"
 
 import listClients from "@src/actions/list_clients"
 import createClient from "@src/actions/create_client"
@@ -38,8 +38,8 @@ export function createServer() {
     res.status(201).send(client)
   })
 
-  app.patch("/client/:clientId", async(req: Request, res: Response, _next: NextFunction) => {
-    const clientId = req.params.clientId!
+  app.patch("/client/:clientId", validateClientId, async(req: Request, res: Response, _next: NextFunction) => {
+    const clientId = req.parsedClientId!
     const params = req.body
     const { client, error } = await updateClient(clientId, params)
 
@@ -51,8 +51,8 @@ export function createServer() {
     res.status(200).send(client)
   })
 
-  app.patch("/client/:clientId/update_status", async(req: Request, res: Response) => {
-    const clientId = req.params.clientId!
+  app.patch("/client/:clientId/update_status", validateClientId, async(req: Request, res: Response) => {
+    const clientId = req.parsedClientId!
     const status = req.body.status
     const { client, error } = await updateClientStatus(clientId, status)
 
@@ -64,9 +64,8 @@ export function createServer() {
     res.send(client)
   })
 
-  app.delete("/client/:clientId", async(req: Request, res: Response) => {
-    const clientId = req.params.clientId!
-    const { isDestroyed, error } = await destroyClient(clientId)
+  app.delete("/client/:clientId", validateClientId, async(req: Request, res: Response) => {
+    const { isDestroyed, error } = await destroyClient(req.parsedClientId!)
 
     if (error) {
       return res.status(error.code).send({ destroyed: isDestroyed, error: error.message })

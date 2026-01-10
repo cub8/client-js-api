@@ -16,17 +16,8 @@ type UpdateClientReturnType = {
   }
 }
 
-export default async function updateClientStatus(clientId: string, status: Status): Promise<UpdateClientReturnType> {
+export default async function updateClientStatus(clientId: number, status: Status): Promise<UpdateClientReturnType> {
   const parsedClientId = Number(clientId)
-  if (isNaN(parsedClientId)) {
-    return {
-      error: {
-        errors: { clientId: ["Provided invalid clientID"] },
-        code: 400,
-      },
-    }
-  }
-
   const dataToValidate = { status }
   const result = updateClientStatusSchema.safeParse(dataToValidate)
 

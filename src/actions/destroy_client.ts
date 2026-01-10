@@ -3,9 +3,6 @@ import prisma from "@src/prisma"
 type DestroyClientError = {
   message: "Provided invalid ID"
   code: 400
-} | {
-  message: "User not found"
-  code: 404
 }
 
 type DestroyClientReturnType = {
@@ -13,18 +10,10 @@ type DestroyClientReturnType = {
   error?: DestroyClientError
 }
 
-export default async function destroyClient(clientId: string): Promise<DestroyClientReturnType> {
-  const parsedClientId = Number(clientId)
-  if (isNaN(parsedClientId)) {
-    return {
-      isDestroyed: false,
-      error: { message: "Provided invalid ID", code: 400 },
-    }
-  }
-
+export default async function destroyClient(clientId: number): Promise<DestroyClientReturnType> {
   await prisma.client.delete({
     where: {
-      id: parsedClientId,
+      id: clientId,
     },
   })
 

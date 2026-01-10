@@ -73,7 +73,7 @@ describe("PATCH /client/:clientId/update_status", () => {
       .send(payload)
 
     expect(response.status).toBe(400)
-    expect(response.body.clientId).toContain("Provided invalid clientID")
+    expect(response.body.error.clientId).toContain("Provided invalid clientID")
   })
 
   it("should return 404 if client not found", async() => {

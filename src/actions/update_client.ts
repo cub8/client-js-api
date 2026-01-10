@@ -24,17 +24,7 @@ type UpdateClientReturnType = {
   }
 }
 
-export default async function updateClient(clientId: string, params: UpdateClientParams): Promise<UpdateClientReturnType> {
-  const parsedClientId = Number(clientId)
-  if (isNaN(parsedClientId)) {
-    return {
-      error: {
-        errors: { clientId: ["Provided invalid clientID"] },
-        code: 400,
-      },
-    }
-  }
-
+export default async function updateClient(clientId: number, params: UpdateClientParams): Promise<UpdateClientReturnType> {
   const dataToValidate = {
     firstName: params.firstName,
     lastName: params.lastName,
@@ -53,7 +43,7 @@ export default async function updateClient(clientId: string, params: UpdateClien
   }
 
   const updatedClient = await prisma.client.update({
-    where: { id: parsedClientId },
+    where: { id: clientId },
     data: result.data,
   })
 
