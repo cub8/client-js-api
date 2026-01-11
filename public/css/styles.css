@@ -100,3 +100,34 @@ button:hover {
   color: green;
   margin-bottom: 10px;
 }
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.update-client-status-controls {
+  display: flex;
+  gap: 5px
+}
+
+.red {
+  color: red;
+}
+
+.green {
+  color: green;
+}
+
+.status-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.edit-status-button {
+  font-size: 0.8em;
+  padding: 2px 5px;
+}
