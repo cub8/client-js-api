@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Client</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <script defer src="../js/new_client.js"></script>
+  <script src="//unpkg.com/alpinejs" defer></script>
+</head>
+
+<body>
+  <div x-data="createClientForm">
+    <h1>Create New Client</h1>
+
+    <a href="/clients/index.html">Back to List</a>
+    <hr>
+
+    <template x-if="error">
+      <div class="error" x-text="error"></div>
+    </template>
+
+    <template x-if="success">
+      <div class="success">Client created successfully!</div>
+    </template>
+
+    <form @submit.prevent="submitForm">
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input type="text" id="firstName" x-model="form.firstName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="lastName">Last Name</label>
+        <input type="text" id="lastName" x-model="form.lastName" required>
+      </div>
+
+      <div class="form-group">
+        <label for="pesel">PESEL</label>
+        <input type="text" id="pesel" x-model="form.pesel" required maxlength="11">
+      </div>
+
+      <div class="form-group">
+        <label for="note">Note (Optional)</label>
+        <textarea id="note" x-model="form.note"></textarea>
+      </div>
+
+      <button type="submit" class="btn-primary">Create Client</button>
+    </form>
+  </div>
+</body>
+
+</html>

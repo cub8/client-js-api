@@ -14,6 +14,7 @@ export const updateClientSchema = z.object({
     .length(11, "PESEL must be exactly 11 character long")
     .regex(/^\d+$/, "PESEL must contain only digits")
     .optional(),
+  note: z.string().optional(),
 }).transform(removeUndefinedFieldsTransformer)
 
 export type UpdateClientInput = z.infer<typeof updateClientSchema>

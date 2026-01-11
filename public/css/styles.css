@@ -83,3 +83,20 @@ button:hover {
   display: flex;
   gap: 10px;
 }
+
+.delete-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 4px;
+}
+
+.delete-button:hover {
+  background-color: #b02936;
+}
+
+.success {
+  color: green;
+  margin-bottom: 10px;
+}

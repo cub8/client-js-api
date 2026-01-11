@@ -14,7 +14,11 @@
   <div x-data="clientList">
     <h1>Clients</h1>
 
-    <button @click="toggleFilters()" x-text="showFilters ? 'Hide Filters' : 'Show Filters'"></button>
+    <div class="actions" style="margin-bottom: 20px;">
+      <a href="/clients/new_client.html" class="btn-primary" style="text-decoration: none; padding: 10px;">Create New
+        Client</a>
+      <button @click="toggleFilters()" x-text="showFilters ? 'Hide Filters' : 'Show Filters'"></button>
+    </div>
 
     <form id="filterForm" x-show="showFilters" @submit.prevent="applyFilters()" style="display: none;">
       <div class="filter-grid">
@@ -79,6 +83,7 @@
               <th>First Name</th>
               <th>Last Name</th>
               <th>PESEL</th>
+              <th>Note</th>
               <th>Status</th>
               <th>Integrations</th>
               <th>Actions</th>
@@ -91,11 +96,33 @@
                 <td x-text="client.firstName"></td>
                 <td x-text="client.lastName"></td>
                 <td x-text="client.pesel"></td>
-                <td x-text="client.status"></td>
+                <td x-text="client.note"></td>
+
+                <td>
+                  <template x-if="!client.isEditingStatus">
+                    <div style="display: flex; align-items: center; justify-content: space-between;">
+                      <span x-text="client.status"></span>
+                      <button @click="client.isEditingStatus = true; client.newStatus = client.status"
+                        style="font-size: 0.8em; padding: 2px 5px;">Edit</button>
+                    </div>
+                  </template>
+                  <template x-if="client.isEditingStatus">
+                    <div style="display: flex; gap: 5px;">
+                      <select x-model="client.newStatus">
+                        <option value="REGISTERED">REGISTERED</option>
+                        <option value="INTEGRATED">INTEGRATED</option>
+                        <option value="RESIGNED">RESIGNED</option>
+                      </select>
+                      <button @click="updateStatus(client)" style="color: green;">✔</button>
+                      <button @click="client.isEditingStatus = false" style="color: red;">✘</button>
+                    </div>
+                  </template>
+                </td>
+
                 <td x-text="formatIntegrations(client)"></td>
                 <td>
-                  <button @click="deleteClient(client.id)"
-                    style="background-color: #dc3545; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Delete</button>
+                  <a :href="'/clients/edit_client.html?id=' + client.id" style="margin-right: 10px;">Edit</a>
+                  <button class="delete-button" @click="deleteClient(client.id)">Delete</button>
                 </td>
               </tr>
             </template>

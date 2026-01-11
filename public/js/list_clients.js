@@ -50,20 +50,46 @@ document.addEventListener("alpine:init", () => {
     async loadClients(params = new URLSearchParams()) {
       try {
         const response = await fetch(`/api/clients?${params.toString()}`)
-        console.log(response)
         const data = await response.json()
 
         if (data.error) {
           this.error = data.error
           this.clients = []
         } else {
-          this.clients = data
+          // Initialize UI state for inline editing
+          this.clients = data.map((client) => ({
+            ...client,
+            isEditingStatus: false,
+            newStatus: client.status,
+          }))
           this.error = null
         }
       } catch(err) {
-        console.log(err)
         this.error = err.message
         this.clients = []
+      }
+    },
+
+    async updateStatus(client) {
+      try {
+        const response = await fetch(`/api/client/${client.id}/update_status`, {
+          method: "PATCH",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ status: client.newStatus }),
+        })
+
+        if (!response.ok) {
+          const data = await response.json()
+          throw new Error(data.error || "Failed to update status")
+        }
+
+        const updatedClient = await response.json()
+
+        // Update local state
+        client.status = updatedClient.status
+        client.isEditingStatus = false
+      } catch(err) {
+        alert(this.formatError(err))
       }
     },
 

@@ -8,6 +8,7 @@ interface UpdateClientParams {
   firstName?: string
   lastName?: string
   pesel?: string
+  note?: string
 }
 
 export default async function updateClient(clientId: number, params: UpdateClientParams): Promise<Client> {
@@ -15,6 +16,7 @@ export default async function updateClient(clientId: number, params: UpdateClien
     firstName: params.firstName,
     lastName: params.lastName,
     pesel: params.pesel,
+    note: params.note,
   }
 
   const result = updateClientSchema.safeParse(dataToValidate)

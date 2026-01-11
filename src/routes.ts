@@ -3,6 +3,7 @@ import { handlePrismaRecordNotFound, handleValidationError, validateClientId } f
 
 import listClients from "@src/actions/list_clients"
 import createClient from "@src/actions/create_client"
+import showClient from "@src/actions/show_client"
 import updateClient from "@src/actions/update_client"
 import updateClientStatus from "@src/actions/update_client_status"
 import destroyClient from "@src/actions/destroy_client"
@@ -28,6 +29,13 @@ export function createServer() {
     }
 
     res.status(200).send(clients)
+  })
+
+  apiRouter.get("/client/:clientId", validateClientId, async(req: Request, res: Response) => {
+    const clientId = req.parsedClientId!
+    const client = await showClient(clientId)
+
+    res.status(200).send(client)
   })
 
   apiRouter.post("/clients", async(req: Request, res: Response) => {

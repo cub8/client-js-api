@@ -36,6 +36,7 @@ export default async function listClients(queryParams: unknown): Promise<ListCli
   const clients    = await prisma.client.findMany({
     where: whereQuery,
     include: { integrations: true },
+    orderBy: [ { id: "asc" } ],
   })
 
   return { clients }

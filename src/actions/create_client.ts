@@ -8,6 +8,7 @@ interface CreateClientParams {
   firstName: string
   lastName: string
   pesel: string
+  note?: string
 }
 
 export default async function createClient(params: CreateClientParams): Promise<Client> {
@@ -15,6 +16,7 @@ export default async function createClient(params: CreateClientParams): Promise<
     firstName: params.firstName || "",
     lastName: params.lastName || "",
     pesel: params.pesel,
+    note: params.note,
   }
 
   const result = createClientSchema.safeParse(dataToValidate)
@@ -26,6 +28,7 @@ export default async function createClient(params: CreateClientParams): Promise<
   const client = await prisma.client.create({
     data: {
       ...result.data,
+      note: result.data.note || null,
       status: "REGISTERED",
     },
   })
