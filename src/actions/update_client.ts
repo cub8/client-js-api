@@ -27,7 +27,10 @@ export default async function updateClient(clientId: number, params: UpdateClien
 
   const updatedClient = await prisma.client.update({
     where: { id: clientId },
-    data: result.data,
+    data: {
+      ...result.data,
+      updatedAt: new Date(),
+    },
   })
 
   return updatedClient

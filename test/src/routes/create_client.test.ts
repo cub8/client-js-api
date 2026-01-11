@@ -9,6 +9,7 @@ describe("POST /clients", () => {
       firstName: "Adam",
       lastName: "Nowacki",
       pesel: "01195678123",
+      note: "Egeszegere",
     }
 
     const response = await request(app)
@@ -25,6 +26,7 @@ describe("POST /clients", () => {
     expect(createdClient.lastName).toBe("Nowacki")
     expect(createdClient.pesel).toBe("01195678123")
     expect(createdClient.status).toBe("REGISTERED")
+    expect(createdClient.note).toBe("Egeszegere")
   })
 
   it("should return 422 if failed to create client due to provided params", async() => {

@@ -121,7 +121,7 @@
 
                 <td x-text="formatIntegrations(client)"></td>
                 <td>
-                  <a :href="'/clients/edit_client.html?id=' + client.id" style="margin-right: 10px;">Edit</a>
+                  <a :href="'/clients/edit_client.html?id=' + client.id">Edit</a>
                   <button class="delete-button" @click="deleteClient(client.id)">Delete</button>
                 </td>
               </tr>

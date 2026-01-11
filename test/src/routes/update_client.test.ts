@@ -12,6 +12,7 @@ describe("PATCH /client/:clientId", () => {
       firstName: "Krystian",
       lastName: "Czeski",
       pesel: "12345678901",
+      note: "Nasz nowy klient :)",
     })
     clientId = client.id
   })
@@ -21,6 +22,7 @@ describe("PATCH /client/:clientId", () => {
       firstName: "Jan",
       lastName: "Kowalski",
       pesel: "98765432109",
+      note: "Jeny ale on męczy",
     }
 
     const response = await request(app)
@@ -34,6 +36,7 @@ describe("PATCH /client/:clientId", () => {
     expect(updatedClient.firstName).toBe("Jan")
     expect(updatedClient.lastName).toBe("Kowalski")
     expect(updatedClient.pesel).toBe("98765432109")
+    expect(updatedClient.note).toBe("Jeny ale on męczy")
   })
 
   it("should update client with partial fields", async() => {
