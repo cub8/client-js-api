@@ -1,0 +1,85 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 20px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+.error {
+  color: red;
+}
+
+#filterForm {
+  border: 1px solid #ddd;
+  padding: 15px;
+  background: #f9f9f9;
+  max-width: 800px;
+  margin-top: 10px;
+}
+
+.filter-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-group label {
+  margin-bottom: 5px;
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+.form-group input {
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+button {
+  padding: 8px 15px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  background-color: #e0e0e0;
+  border-radius: 4px;
+}
+
+button:hover {
+  background-color: #d0d0d0;
+}
+
+.btn-primary {
+  background-color: #007bff;
+  color: white;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+}

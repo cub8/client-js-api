@@ -34,6 +34,12 @@ describe("GET /clients", async() => {
     })
   })
 
+  it("handles non existing status", async() => {
+    const response = await request(app).get("/api/clients?statusEq=Troja")
+    expect(response.status).toBe(400)
+    expect(response.body.error.statusEq).toContain("Invalid option: expected one of \"REGISTERED\"|\"INTEGRATED\"|\"RESIGNED\"")
+  })
+
   it("ignores non existing parameters", async() => {
     const response = await request(app).get("/api/clients?agamemnonEq=Troja")
 

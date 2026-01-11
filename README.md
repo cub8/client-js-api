@@ -10,12 +10,13 @@
 
 ### Korzyści dla Użytkowników systemu
 
-## Stos technologiczny
+## Stos technologicznyIntegrations
 - Node
 - Postgresql
 - TypeScript
 - Express.js
 - Prisma
+- Alpine.js (do prostych widoków)
 
 ## Jak uruchomić projekt
 
