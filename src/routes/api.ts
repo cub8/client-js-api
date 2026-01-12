@@ -1,4 +1,4 @@
-import express, { type Request, type Response, type NextFunction } from "express"
+import express, { type Request, type Response } from "express"
 import { validateClientId } from "@src/utils/middleware"
 
 import listClients from "@src/actions/list_clients"
@@ -7,7 +7,7 @@ import showClient from "@src/actions/show_client"
 import updateClient from "@src/actions/update_client"
 import updateClientStatus from "@src/actions/update_client_status"
 import destroyClient from "@src/actions/destroy_client"
-
+import createIntegration from "@src/actions/create_integration"
 
 export default function defineApiRoutes() {
   const apiRouter = express.Router()
@@ -32,13 +32,24 @@ export default function defineApiRoutes() {
 
   apiRouter.post("/clients", async(req: Request, res: Response) => {
     const params = req.body
-
     const client = await createClient(params)
 
     res.status(201).send(client)
   })
 
-  apiRouter.patch("/client/:clientId", validateClientId, async(req: Request, res: Response, _next: NextFunction) => {
+  apiRouter.post("/clients/:clientId/integrations", validateClientId, async(req: Request, res: Response) => {
+    const clientId = req.parsedClientId!
+    const params = req.body
+    const { integration, error } = await createIntegration(clientId, params)
+
+    if (error) {
+      res.status(422).send({ error })
+    }
+
+    res.status(200).send(integration)
+  })
+
+  apiRouter.patch("/client/:clientId", validateClientId, async(req: Request, res: Response) => {
     const clientId = req.parsedClientId!
     const params = req.body
     const client = await updateClient(clientId, params)
