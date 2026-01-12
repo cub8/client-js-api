@@ -6,6 +6,9 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  DB_BASE_URL: "postgresql://user:password@localhost:5432/mydb"
+
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -15,6 +18,7 @@ jobs:
         with:
           node-version: 24
           cache: "npm"
+
       - run: npm ci
       - run: npm run lint
 
@@ -41,13 +45,14 @@ jobs:
         with:
           node-version: 24
           cache: "npm"
+
       - run: npm ci
       - run: npx prisma generate
       - name: Run Tests
         run: npm run test
         env:
           PORT: 3000
-          DATABASE_URL: "postgresql://user:password@localhost:5432/mydb?schema=simple_client_app_test"
+          DATABASE_URL: "${{ env.DB_BASE_URL }}?schema=simple_client_app_test"
           NODE_ENV: test
 
   prod-check:
@@ -66,30 +71,24 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
+
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           cache: "npm"
+
       - run: npm ci
       - name: Run Migrations
         run: npx prisma migrate deploy
         env:
-          DATABASE_URL: "postgresql://user:password@localhost:5432/mydb?schema=public"
+          DATABASE_URL: "${{ env.DB_BASE_URL }}?schema=public"
       - run: npx prisma generate
       - run: npm run build
       - name: Start Application
-        run: |
-          timeout 10s npm run start || code=$?
-          if [ "$code" -eq 124 ]; then
-            echo "Server started and ran for 10 seconds (success)"
-            exit 0
-          else
-            echo "Server exited with code $code"
-            exit 1
-          fi
+        run: ./.github/workflows/check_prod_start.sh
         env:
           PORT: 3000
-          DATABASE_URL: "postgresql://user:password@localhost:5432/mydb?schema=public"
+          DATABASE_URL: "${{ env.DB_BASE_URL }}?schema=public"
           NODE_ENV: production
