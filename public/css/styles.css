@@ -127,6 +127,14 @@ button:hover {
   gap: 10px;
 }
 
+.integration-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 5px;
+  white-space: nowrap;
+}
+
 .edit-status-button {
   font-size: 0.8em;
   padding: 2px 5px;

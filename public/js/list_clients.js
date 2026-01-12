@@ -56,17 +56,50 @@ document.addEventListener("alpine:init", () => {
           this.error = data.error
           this.clients = []
         } else {
-          // Initialize UI state for inline editing
           this.clients = data.map((client) => ({
             ...client,
             isEditingStatus: false,
             newStatus: client.status,
+            isAddingIntegration: false,
+            newIntegrationType: "",
           }))
           this.error = null
         }
       } catch(err) {
         this.error = err.message
         this.clients = []
+      }
+    },
+
+    getAvailableIntegrations(client) {
+      const allTypes = ["API", "INTERNAL"]
+      const existingTypes = client.integrations ? client.integrations.map((i) => i.type) : []
+      return allTypes.filter((type) => !existingTypes.includes(type))
+    },
+
+    async addIntegration(client) {
+      try {
+        const response = await fetch(`/api/clients/${client.id}/integrations`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ type: client.newIntegrationType }),
+        })
+
+        if (!response.ok) {
+          const data = await response.json()
+          throw new Error(data.error || "Failed to add integration")
+        }
+
+        const newIntegration = await response.json()
+
+        if (!client.integrations) {
+          client.integrations = []
+        }
+        client.integrations.push(newIntegration)
+        client.isAddingIntegration = false
+        client.newIntegrationType = ""
+      } catch(err) {
+        alert(this.formatError(err))
       }
     },
 
@@ -85,7 +118,6 @@ document.addEventListener("alpine:init", () => {
 
         const updatedClient = await response.json()
 
-        // Update local state
         client.status = updatedClient.status
         client.isEditingStatus = false
       } catch(err) {

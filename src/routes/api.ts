@@ -43,7 +43,7 @@ export default function defineApiRoutes() {
     const { integration, error } = await createIntegration(clientId, params)
 
     if (error) {
-      res.status(422).send({ error })
+      return res.status(422).send({ error })
     }
 
     res.status(200).send(integration)

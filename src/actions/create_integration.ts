@@ -28,7 +28,7 @@ export default async function createIntegration(clientId: number, params: Create
   const integrationType = result.data.type
   const existingIntegration = await prisma.integration.findFirst({
     where: {
-      id: clientId,
+      clientId,
       type: integrationType,
     },
   })

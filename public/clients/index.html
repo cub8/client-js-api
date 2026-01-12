@@ -121,7 +121,29 @@
                   </template>
                 </td>
 
-                <td x-text="formatIntegrations(client)"></td>
+                <td>
+                  <div class="integration-container">
+                    <span x-text="formatIntegrations(client)"></span>
+
+                    <template x-if="!client.isAddingIntegration && getAvailableIntegrations(client).length > 0">
+                      <button
+                        @click="client.isAddingIntegration = true; client.newIntegrationType = getAvailableIntegrations(client)[0]"
+                        class="edit-status-button" style="margin-left: 5px;">+</button>
+                    </template>
+
+                    <template x-if="client.isAddingIntegration">
+                      <div class="update-client-status-controls" style="margin-left: 5px;">
+                        <select x-model="client.newIntegrationType">
+                          <template x-for="type in getAvailableIntegrations(client)" :key="type">
+                            <option :value="type" x-text="type"></option>
+                          </template>
+                        </select>
+                        <button @click="addIntegration(client)" class="green">✔</button>
+                        <button @click="client.isAddingIntegration = false" class="red">✘</button>
+                      </div>
+                    </template>
+                  </div>
+                </td>
                 <td x-text="client.createdAt"></td>
                 <td x-text="client.updatedAt"></td>
                 <td>
