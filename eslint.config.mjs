@@ -6,7 +6,7 @@ import vitest from "@vitest/eslint-plugin"
 
 export default [
   {
-    ignores: ["dist/", "node_modules/", "generated/"],
+    ignores: ["dist/", "api/", "node_modules/", "generated/"],
   },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,

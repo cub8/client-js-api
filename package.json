@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/src/index.js",
   "scripts": {
-    "build": "npx tsc -p tsconfig.build.json && tsc-alias -p tsconfig.build.json",
+    "build": "npx tsc -p tsconfig.build.json && npx tsc-alias -p tsconfig.build.json",
     "start": "node dist/src/index.js",
     "dev": "tsx watch src/index.ts",
     "prisma:studio": "npx prisma studio",
