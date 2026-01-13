@@ -32,7 +32,6 @@ export default function buildListClientsQuery(params: ListClientsInput): Prisma.
     const match = key.match(/^(.*)(Eq|In)$/)
     if (!match) continue
 
-
     const [, field, operator] = match as [string, string, string]
     const prismaOperator = queryOperatorToPrismaOperator(operator)
     const isEnum = (ENUM_FIELDS as readonly string[]).includes(field)
