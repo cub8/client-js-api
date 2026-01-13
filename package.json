@@ -4,7 +4,8 @@
   "description": "",
   "main": "dist/src/index.js",
   "scripts": {
-    "build": "npx tsc -p tsconfig.build.json && npx tsc-alias -p tsconfig.build.json",
+    "prisma:copy_ssl_rhel": "cp generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node dist/generated/prisma/libquery_engine-rhel-openssl-3.0.x.so.node",
+    "build": "npx prisma generate && npx tsc -p tsconfig.build.json && npx tsc-alias -p tsconfig.build.json && npm run prisma:copy_ssl_rhel",
     "start": "node dist/src/index.js",
     "dev": "tsx watch src/index.ts",
     "prisma:studio": "npx prisma studio",
@@ -14,7 +15,7 @@
     "test:prepare": "dotenv -e .env.test -- prisma migrate deploy",
     "test": "npm run test:prepare && dotenv -e .env.test -- vitest",
     "test:watch": "dotenv -e .env.test -- vitest --watch",
-    "postinstall": "prisma generate"
+    "postinstall": "npx prisma generate"
   },
   "keywords": [],
   "author": "",
