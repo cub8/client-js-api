@@ -11,7 +11,7 @@ Jest to aplikacja serwerowa służąca do zarządzania klientami oraz ich integr
 1. Odbiorca systemu może utworzyć klientów i zarządzać nimi.
 2. Odbiorca systemu może pobrać listę klientów i ich filtrować.
 3. Odbiorca systemu może zmienić status klienta.
-4. [TODO] Odbiorca systemu może stworzyć integrację dla klienta
+4. Odbiorca systemu może stworzyć integrację dla klienta
 
 ### Wymagania niefunkcjonalne
 
