@@ -25,7 +25,7 @@ model Integration {
   clientId  Int
   type      IntegrationType
   createdAt DateTime        @default(now()) @db.Timestamp(6)
-  client    Client          @relation(fields: [clientId], references: [id])
+  client    Client          @relation(fields: [clientId], references: [id], onDelete: Cascade)
 }
 
 enum Status {

@@ -6,7 +6,7 @@ const app = createServer()
 
 describe("DELETE /client/:clientId", () => {
   it("should delete existing user if provided correct clientId", async() => {
-    const client = await clientFactory.create()
+    const client = await clientFactory.create({ integrations: [{ type: "API" }] })
     const clientId = client.id
     const response = await request(app).delete(`/api/client/${clientId}`)
 
